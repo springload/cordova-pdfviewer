@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="nz.co.springload.pdfviewer" version="1.0">
+    <name>PDFViewer</name>
+    <description>Download and View PDF Documents</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,pdf</keywords>
+    <js-module src="www/PDFViewer.js" name="PDFViewer">
+        <clobbers target="PDFViewer" />
+    </js-module>
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="nz.co.springload.pdfviewer.PDFViewer">
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/nz/co/springload/pdfviewer/PDFViewer.java" target-dir="src/nz/co/springload/pdfviewer" />
+        <source-file src="src/android/nz/co/springload/pdfviewer/Downloader.java" target-dir="src/nz/co/springload/pdfviewer" />
+    </platform>
+</plugin>
