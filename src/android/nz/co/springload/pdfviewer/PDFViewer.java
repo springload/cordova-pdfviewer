@@ -16,7 +16,7 @@ import org.apache.cordova.*;
 public class PDF extends CordovaPlugin
 {
 	private Downloader activeDownload;
-
+	
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView)
 	{
@@ -24,16 +24,16 @@ public class PDF extends CordovaPlugin
 		super.initialize(cordova, webView);
 	}
 
-    public static boolean canDisplayPdf(Context context) {
-        PackageManager packageManager = context.getPackageManager();
-        Intent testIntent = new Intent(Intent.ACTION_VIEW);
-        testIntent.setType("application/pdf");
-        if (packageManager.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+	public static boolean canDisplayPdf(Context context) {
+		PackageManager packageManager = context.getPackageManager();
+		Intent testIntent = new Intent(Intent.ACTION_VIEW);
+		testIntent.setType("application/pdf");
+		if (packageManager.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	@Override
 	public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
@@ -55,18 +55,18 @@ public class PDF extends CordovaPlugin
 								try
 								{
 
-                                    if (canDisplayPdf(cordova.getActivity())) {
-
-									    Intent target = new Intent(Intent.ACTION_VIEW);
-									    target.setDataAndType(downloader.downloadUri, "application/pdf");
-
-                                        Intent intent = Intent.createChooser(target, "Open File");
-                                        activity.startActivity(intent);
-                                        callbackContext.success();
-                                    }
-                                    else {
-                                        callbackContext.error("noApplication");
-                                    }
+									if (canDisplayPdf(cordova.getActivity())) {
+									
+										Intent target = new Intent(Intent.ACTION_VIEW);
+										target.setDataAndType(downloader.downloadUri, "application/pdf");
+										
+										Intent intent = Intent.createChooser(target, "Open File");
+										activity.startActivity(intent);
+										callbackContext.success();
+									}
+									else {
+										callbackContext.error("noApplication");
+									}
 								}
 								catch (ActivityNotFoundException e)
 								{
