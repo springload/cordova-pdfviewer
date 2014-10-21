@@ -1,4 +1,4 @@
-package nz.co.springload;
+package nz.co.springload.pdfviewer;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,14 +13,13 @@ import org.json.*;
 import org.apache.cordova.*;
 
 
-public class PDF extends CordovaPlugin
+public class PDFViewer extends CordovaPlugin
 {
 	private Downloader activeDownload;
-	
+
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView)
 	{
-		Log.d("Forbar", "INIT");
 		super.initialize(cordova, webView);
 	}
 
@@ -37,8 +36,7 @@ public class PDF extends CordovaPlugin
 
 	@Override
 	public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-		Log.d("Forbar", "Exec");
-		if (action.equals("test")) {
+		if (action.equals("load")) {
 
 			activeDownload = new Downloader((String)args.get(0), new Downloader.Callback() {
 
@@ -56,10 +54,10 @@ public class PDF extends CordovaPlugin
 								{
 
 									if (canDisplayPdf(cordova.getActivity())) {
-									
+
 										Intent target = new Intent(Intent.ACTION_VIEW);
 										target.setDataAndType(downloader.downloadUri, "application/pdf");
-										
+
 										Intent intent = Intent.createChooser(target, "Open File");
 										activity.startActivity(intent);
 										callbackContext.success();
